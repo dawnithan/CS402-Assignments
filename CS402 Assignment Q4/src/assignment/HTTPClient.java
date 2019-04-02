@@ -17,7 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 public class HTTPClient {
 	public static void main (String args[]) throws IOException {
 		// Target to extract from
-		String theURL = "https://old.reddit.com/r/leagueoflegends/";
+		String theURL = "http://example.com/";
 		
 		CloseableHttpClient client = HttpClients.createDefault();
 		HttpGet request = new HttpGet(theURL);
@@ -43,7 +43,7 @@ public class HTTPClient {
 		
 		// Connect to the URL with a HTML parser and get the DOM
 		// https://stackoverflow.com/questions/3383152/how-to-find-hyperlink-in-a-webpage-using-java
-		Document getDocument = Jsoup.parse(new URL(theURL), 2000);
+		Document getDocument = Jsoup.parse(new URL(theURL), 7000);
 
 		// Define a list of all the anchor tags in the document
 		Elements links = getDocument.select("a");
