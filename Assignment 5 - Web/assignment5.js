@@ -4,7 +4,7 @@ window.addEventListener("load", function() {
 
 function loadXML() {
 	var x = new XMLHttpRequest();
-	x.open("get", "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=ENFLD&NumMins=90", true);
+	x.open("get", "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=mhide&NumMins=90", true);
 	x.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
 			displayXML(x);
@@ -15,39 +15,41 @@ function loadXML() {
 
 function displayXML(xml) {
 	const doc = xml.responseXML;
+
+	// Define the table headers
 	let table = '<tr><th>Due-In</th><th>Destination</th><th>Departure</th><th>Arrival At Destination</th><th>Origin</th></tr>'
+	
+	// Get info from the XML document
 	let querytime = doc.getElementsByTagName("Querytime");
+	let stationname = doc.getElementsByTagName("Stationfullname")
 	let duein = doc.getElementsByTagName("Duein");
 	let destination = doc.getElementsByTagName("Destination");
 	let origintime = doc.getElementsByTagName("Origintime");
 	let destinationtime = doc.getElementsByTagName("Destinationtime");
 	let origin = doc.getElementsByTagName("Origin");
 	
-	document.getElementById("table_title").innerHTML += querytime[0].innerHTML + ':';
+	// Add the query time to the table title
+	if (querytime[0] !== undefined && stationname[0] !== undefined) {
+		document.getElementById("table_title").innerHTML = stationname[0].innerHTML + " Station @ " + querytime[0].innerHTML + ':';
+	}
 
-	if (doc.childNodes.length > 0) {
-		// First Row
-		table += "<tr>";
-		table += "<td>" + duein[0].innerHTML + " mins" + "</td>";
-		table += "<td>" + destination[0].innerHTML + "</td>";
-		table += "<td>" + origintime[0].innerHTML + "</td>";
-		table += "<td>" + destinationtime[0].innerHTML + "</td>";
-		table += "<td>" + origin[0].innerHTML + "</td>";
-		table += "</tr>";
+	// Add each station info
+	for (let i = 0; i < duein.length; i++) {
+		if (duein[i] !== undefined) {
+			table += "<tr>";
+			table += "<td>" + duein[i].innerHTML + " mins" + "</td>";
+			table += "<td>" + destination[i].innerHTML + "</td>";
+			table += "<td>" + origintime[i].innerHTML + "</td>";
+			table += "<td>" + destinationtime[i].innerHTML + "</td>";
+			table += "<td>" + origin[i].innerHTML + "</td>";
+			table += "</tr>";
+		}
+	}
+
+	if (duein.length !== 0) {
+		document.getElementById("xml_table").innerHTML = table;
 	} else {
-		document.getElementById("err").innerHTML = "No data available at this time. Try again later!";
+		// If the table is empty, display an error message
+		document.getElementById("err").innerHTML = "No data available. Try again later!";
 	}
-
-	if (doc.childNodes.length > 1) {
-		// Second Row
-		table += "<tr>"
-		table += "<td>" + duein[1].innerHTML + " mins" + "</td>";
-		table += "<td>" + destination[1].innerHTML + "</td>";
-		table += "<td>" + origintime[1].innerHTML + "</td>";
-		table += "<td>" + destinationtime[1].innerHTML + "</td>";
-		table += "<td>" + origin[1].innerHTML + "</td>";
-		table += "</tr>"
-	}
-
-	document.getElementById("xml_table").innerHTML = table;
 }
