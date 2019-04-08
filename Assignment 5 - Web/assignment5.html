@@ -16,6 +16,11 @@
 </head>
 
 <body>
+	<select id="station_dropdown">
+		<option value="MGLAR" onclick="loadXML()" selected>Mullingar</option>
+		<option value="ENFLD" onclick="loadXML()">Enfield</option>
+		<option value="MHIDE" onclick="loadXML()">Malahide</option>
+	</select>
 	<p id="table_title"></p>
 	<table id="xml_table"></table>
 	<p id="err"></p>

@@ -3,8 +3,9 @@ window.addEventListener("load", function() {
 });
 
 function loadXML() {
-	var x = new XMLHttpRequest();
-	x.open("get", "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=mhide&NumMins=90", true);
+	let x = new XMLHttpRequest();
+	let station = document.getElementById("station_dropdown").value;
+	x.open("get", "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode="+station+"&NumMins=90", true);
 	x.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
 			displayXML(x);
@@ -48,8 +49,10 @@ function displayXML(xml) {
 
 	if (duein.length !== 0) {
 		document.getElementById("xml_table").innerHTML = table;
+		document.getElementById("err").innerHTML = '';
 	} else {
 		// If the table is empty, display an error message
 		document.getElementById("err").innerHTML = "No data available. Try again later!";
+		document.getElementById("xml_table").innerHTML = '';
 	}
 }
