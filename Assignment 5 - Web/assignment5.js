@@ -32,6 +32,8 @@ function displayXML(xml) {
 	// Add the query time to the table title
 	if (querytime[0] !== undefined && stationname[0] !== undefined) {
 		document.getElementById("table_title").innerHTML = stationname[0].innerHTML + " Station @ " + querytime[0].innerHTML + ':';
+	} else {
+		document.getElementById("table_title").innerHTML = "";
 	}
 
 	// Add each station info
