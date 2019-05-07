@@ -4,26 +4,40 @@
 <head>
 	<meta charset='UTF-8'>
 	<script src="assignment5.js"></script>
-	<style>
-		table, th, td {
-		  border: 1px solid black;
-		  border-collapse:collapse;
-		}
-		th, td {
-		  padding: 5px;
-		}
-	</style>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+	<link rel="stylesheet" href="assignment5.css">
 </head>
 
 <body>
-	<select id="station_dropdown">
-		<option value="MLGAR" onclick="loadXML()">Mullingar</option>
-		<option value="ENFLD" onclick="loadXML()" selected>Enfield</option>
-		<option value="MHIDE" onclick="loadXML()">Malahide</option>
-	</select>
-	<p id="table_title"></p>
-	<table id="xml_table"></table>
-	<p id="err"></p>
+	<div class="ui text container">
+		<br>
+		<h1 id="table_title" class="ui center aligned header"></h1>
+		<br>
+ 	</div>
+
+	<div class="ui container">
+		<table id="xml_table" class="ui celled table"></table>
+	</div>
+
+	<div id="error_div" class="ui center aligned text container">
+		<p id="err"></p>
+		<!--
+		<div id="error_msg" class="ui negative message">
+			<p id="err"></p>
+		</div> 
+		-->
+	</div>
+
+	<div class="ui container">
+		<br>
+		<select id="station_dropdown" class="ui dropdown">
+			<option value="MLGAR" onclick="loadXML()">Mullingar</option>
+			<option value="ENFLD" onclick="loadXML()">Enfield</option>
+			<option value="MHIDE" onclick="loadXML()" selected>Malahide</option>
+		</select>
+	</div>
 </body>
 
 </html>

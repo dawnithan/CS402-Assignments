@@ -50,10 +50,12 @@ function displayXML(xml) {
 	}
 
 	if (duein.length !== 0) {
+		// document.getElementById("error_div").display = "none";
 		document.getElementById("xml_table").innerHTML = table;
 		document.getElementById("err").innerHTML = '';
 	} else {
 		// If the table is empty, display an error message
+		// document.getElementById("error_msg").display = "block";
 		document.getElementById("err").innerHTML = "No data available. Try again later!";
 		document.getElementById("xml_table").innerHTML = '';
 	}
